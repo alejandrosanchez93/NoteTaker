@@ -10,16 +10,18 @@ app.use(express.static("/public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
+
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../index.html"));
+    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
 })
 
 app.get("/notes", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../notes.html"));
+    res.sendFile(path.join(__dirname, "./Develop/public/notes.html"));
 })
 
 app.get("/api/notes", (req, res) => {
-    const noteList = JSON.parse(fs.readFileSync("../../../db/db.json", "utf8"));
+    const noteList = JSON.parse(fs.readFileSync("./Develop/db/db.json", "utf8"));
 
     res.json(noteList);
 })
@@ -31,10 +33,10 @@ app.post("/api/notes", (req, res) => {
     console.log("success a note has been entered: " + JSON.stringify(newNote));
 
 
-    const noteArray = JSON.parse(fs.readFileSync("../../../db/db.json", "utf8"));
+    const noteArray = JSON.parse(fs.readFileSync("./Develop/db/db.json", "utf8"));
     noteArray.push(newNote);
 
-    fs.writeFileSync("../../../db/db.json", JSON.stringify(noteArray), "utf8");
+    fs.writeFileSync("./Develop/db/db.json", JSON.stringify(noteArray), "utf8");
     res.json(noteArray);
 })
 
